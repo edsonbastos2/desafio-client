@@ -16,11 +16,13 @@ public class ClientService {
     @Autowired
     private ClientRepository repository;
 
+    @Transactional(readOnly = true)
     public ClientDto getById(Long id) {
         var client  = repository.findById(id).get();
         return new ClientDto(client);
     }
 
+    @Transactional(readOnly = true)
     public Page<ClientDto> findAll(Pageable pageable) {
         return repository.findAll(pageable).map(ClientDto::new);
     }
@@ -28,13 +30,24 @@ public class ClientService {
     @Transactional
     public ClientDto insert(FormClientDto dto) {
         Client client = new Client();
+        copyDtoToEntity(dto, client);
+        client = repository.save(client);
+        return new ClientDto(client);
+    }
+
+    @Transactional
+    public ClientDto update(Long id, FormClientDto dto) {
+        Client client = repository.getReferenceById(id);
+        copyDtoToEntity(dto, client);
+        client = repository.save(client);
+        return new ClientDto(client);
+    }
+
+    private void copyDtoToEntity(FormClientDto dto, Client client) {
         client.setName(dto.getName());
         client.setCpf(dto.getCpf());
+        client.setIncome(dto.getIncome());
         client.setBirthDate(dto.getBirthDate());
         client.setChildren(dto.getChildren());
-
-        client = repository.save(client);
-
-        return new ClientDto(client);
     }
 }
