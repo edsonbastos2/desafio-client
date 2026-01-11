@@ -1,10 +1,8 @@
 package com.userTest.demo.dto;
 
-import com.userTest.demo.entities.Client;
-
 import java.time.LocalDate;
 
-public class ClientDto {
+public class FormClientDto {
     private Long id;
     private String name;
     private String cpf;
@@ -13,10 +11,10 @@ public class ClientDto {
     private Integer children;
 
 
-    public ClientDto() {
+    public FormClientDto() {
     }
 
-    public ClientDto(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
+    public FormClientDto(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -25,13 +23,13 @@ public class ClientDto {
         this.children = children;
     }
 
-    public ClientDto(Client client) {
-        id = client.getId();
-        name = client.getName();
-        cpf = client.getCpf();
-        income = client.getIncome();
-        birthDate = client.getBirthDate();
-        children = client.getChildren();
+    public FormClientDto(ClientDto clientDto) {
+        id = clientDto.getId();
+        name = clientDto.getName();
+        cpf = clientDto.getCpf();
+        income = clientDto.getIncome();
+        birthDate = clientDto.getBirthDate();
+        children = clientDto.getChildren();
     }
 
     public Long getId() {
