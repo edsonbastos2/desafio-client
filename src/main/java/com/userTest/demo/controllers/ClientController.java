@@ -21,8 +21,7 @@ public class ClientController {
 
     @GetMapping(value = "{id}")
     public ResponseEntity<ClientDto> getById(@PathVariable Long id) {
-        var dto = service.getById(id);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @GetMapping
