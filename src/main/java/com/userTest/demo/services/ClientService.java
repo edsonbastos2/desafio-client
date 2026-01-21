@@ -65,7 +65,6 @@ public class ClientService {
         if(repository.existsById(id)) {
             throw new ResourceNotFoundException("Id não encontrado");
         }
-
         try {
             repository.deleteById(id);
         }catch (DataIntegrityViolationException e) {
